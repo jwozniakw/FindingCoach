@@ -37,7 +37,6 @@ body {
 }
 
 .refresh {
-  position: relative;
   width: 200px;
   height: 60px;
   margin: 20px auto;
