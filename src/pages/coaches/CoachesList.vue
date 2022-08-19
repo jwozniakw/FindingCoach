@@ -8,17 +8,28 @@
     </button>
     <router-link to="/register">Register as Coach</router-link>
     <ul v-if="hasCoaches">
-      <li v-for="coach in filteredCoaches" :key="coach.id">
-        <!--display first name of coach by his id -->
-        {{ coach.firstName }}
-      </li>
+      <coach-item
+        v-for="coach in filteredCoaches"
+        :key="coach.id"
+        :id="coach.id"
+        :first-name="coach.firstName"
+        :last-name="coach.lastName"
+        :rate="coach.hourlyRate"
+        :areas="coach.areas"
+      ></coach-item>
+      <!--:key służy tylko do rozroznienia ktory element należy do którego i musi być zawsze uwzgledniony i przypisany najlepiej do ID-->
     </ul>
     <h3 v-else>No coaches found</h3>
   </section>
 </template>
 
 <script>
+import CoachItem from '../../components/coaches/CoachItem.vue';
+
 export default {
+  components: {
+    CoachItem,
+  },
   computed: {
     filteredCoaches() {
       return this.$store.getters['coaches/coaches']; // first coaches name means namespaced name and second coaches means getters name
@@ -37,6 +48,7 @@ body {
 }
 
 .refresh {
+  position: relative;
   width: 200px;
   height: 60px;
   margin: 20px auto;
@@ -73,5 +85,16 @@ body {
 }
 .refresh:hover .icon {
   transform: rotate(360deg) scale(1.2);
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
 }
 </style>
