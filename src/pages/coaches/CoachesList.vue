@@ -7,8 +7,28 @@
       />Refresh
     </button>
     <router-link to="/register">Register as Coach</router-link>
+    <ul v-if="hasCoaches">
+      <li v-for="coach in filteredCoaches" :key="coach.id">
+        <!--display first name of coach by his id -->
+        {{ coach.firstName }}
+      </li>
+    </ul>
+    <h3 v-else>No coaches found</h3>
   </section>
 </template>
+
+<script>
+export default {
+  computed: {
+    filteredCoaches() {
+      return this.$store.getters['coaches/coaches']; // first coaches name means namespaced name and second coaches means getters name
+    },
+    hasCoaches() {
+      return this.$store.getters['coaches/hasCoaches'];
+    },
+  },
+};
+</script>
 
 <style>
 body {
