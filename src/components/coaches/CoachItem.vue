@@ -5,11 +5,19 @@
     </h3>
     <h4>${{ rate }} / hour</h4>
     <div>
-      <span v-for="area in areas" :key="area"> {{ area }}</span>
+      <base-badge
+        v-for="area in areas"
+        :key="area"
+        :type="area"
+        :title="area"
+      ></base-badge>
+      <!--zamiast dopisywania zmiennej w srodku jako tekst dopisujemy :type poniewaz w pliku index.js mamy juz zmienna areas w ktorej przypisane sa inne zmienne. Sa one wystylizowane w pliku BaseBadge.vue. Type i title sa potrzebne do rozroznienia ktorego ,,area" dokladnie uzywamy w danym momencie, cos w stylu ID -->
     </div>
     <div class="actions">
-      <router-link :to="coachContactLink">Contact</router-link>
-      <router-link :to="coachDetailsLink">View Details</router-link>
+      <base-button mode="outline" link :to="coachContactLink"
+        >Contact</base-button
+      >
+      <base-button link :to="coachDetailsLink">View Details</base-button>
     </div>
   </li>
 </template>
