@@ -43,7 +43,7 @@ export default {
       return this.selectedCoach.areas;
     },
     rate() {
-      return this.selectedCoach.hourlyRate;
+      return this.selectedCoach.hourlyRate; //selectedCoach jest odniesieniem do tego ktorego trenera wybieramy natomiast
     },
     contactLink() {
       return this.$route.path + '/' + this.id + '/contact';

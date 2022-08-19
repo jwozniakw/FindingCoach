@@ -1,5 +1,5 @@
 <template>
-  <section>FILTER</section>
+  <section><coach-filter @change-filter="setFilters"></coach-filter></section>
   <section>
     <base-card>
       <div class="controls">
@@ -25,17 +25,46 @@
 
 <script>
 import CoachItem from '../../components/coaches/CoachItem.vue';
+import CoachFilter from '../../components/coaches/CoachFilter.vue';
 
 export default {
   components: {
     CoachItem,
+    CoachFilter,
+  },
+  data() {
+    return {
+      activeFilters: {
+        frontend: true,
+        backend: true,
+        career: true,
+      },
+    };
   },
   computed: {
     filteredCoaches() {
-      return this.$store.getters['coaches/coaches']; // first coaches name means namespaced name and second coaches means getters name
+      const coaches = this.$store.getters['coaches/coaches']; // first coaches name means namespaced name and second coaches means getters name
+      return coaches.filter((coach) => {
+        if (this.activeFilters.frontend && coach.areas.includes('frontend')) {
+          return true;
+        }
+        if (this.activeFilters.backend && coach.areas.includes('backend')) {
+          return true;
+        }
+        if (this.activeFilters.career && coach.areas.includes('career')) {
+          return true;
+        }
+        return false;
+      });
     },
     hasCoaches() {
       return this.$store.getters['coaches/hasCoaches'];
+    },
+  },
+  methods: {
+    setFilters(updatedFilters) {
+      //updatedFilters dajemy tu z powodu dodanie go w pliku CoachFilter.vue jest on w emicie dlatego przechodzi on z dziecka do rodzica
+      this.activeFilters = updatedFilters;
     },
   },
 };
